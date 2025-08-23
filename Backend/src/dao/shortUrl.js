@@ -10,3 +10,8 @@ export const saveShortUrl = async (shortUrl, longurl, userId) => {
   }
   newUrl.save();
 };
+
+export const getShortUrl = async (shortUrl) => {
+  const url = await urlSchema.findOne({ short_url: shortUrl });
+  return url.full_url;
+};
