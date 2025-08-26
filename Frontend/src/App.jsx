@@ -1,7 +1,11 @@
+import UrlForm from "./components/UrlForm";
+
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <div>
+      <UrlForm />
+    </div>
+  );
+};
 
-export default App
+export default App;
