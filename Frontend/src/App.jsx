@@ -1,9 +1,9 @@
-import UrlForm from "./components/UrlForm";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
   return (
     <div>
-      <UrlForm />
+      <HomePage />
     </div>
   );
 };

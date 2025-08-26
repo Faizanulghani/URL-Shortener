@@ -1,6 +1,17 @@
+import axios from "axios";
+import { useState } from "react";
+
 const UrlForm = () => {
+  const [url, setValue] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = await axios.post("http://localhost:3000/api/create", { url });
+    console.log(data);
+  };
+
   return (
-    <div className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label
           htmlFor="url"
@@ -11,6 +22,10 @@ const UrlForm = () => {
         <input
           type="url"
           id="url"
+          onInput={(e) => {
+            setValue(e.target.value);
+          }}
+          value={url}
           placeholder="https://example.com"
           required
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -52,7 +67,7 @@ const UrlForm = () => {
           </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
