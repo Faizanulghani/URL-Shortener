@@ -2,12 +2,25 @@ import axios from "axios";
 import { useState } from "react";
 
 const UrlForm = () => {
-  const [url, setValue] = useState("");
+  const [url, setUrl] = useState("");
+  const [shortUrl, setShortUrl] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await axios.post("http://localhost:3000/api/create", { url });
-    console.log(data);
+    const { data } = await axios.post("http://localhost:3000/api/create", {
+      url,
+    });
+    setShortUrl(data);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shortUrl);
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
   };
 
   return (
@@ -23,7 +36,7 @@ const UrlForm = () => {
           type="url"
           id="url"
           onInput={(e) => {
-            setValue(e.target.value);
+            setUrl(e.target.value);
           }}
           value={url}
           placeholder="https://example.com"
@@ -37,7 +50,7 @@ const UrlForm = () => {
       >
         Shorten URL
       </button>
-      <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">Error</div>
+      {/* <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">Error</div>
       <div className="mt-4">
         <label
           htmlFor="customSlug"
@@ -51,22 +64,31 @@ const UrlForm = () => {
           placeholder="Enter custom slug"
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-      </div>
-      <div className="mt-6">
-        <h2 className="text-lg font-semibold mb-2">Your shortened URL:</h2>
-        <div className="flex items-center">
-          <input
-            type="text"
-            readOnly
-            className="flex-1 p-2 border border-gray-300 rounded-l-md bg-gray-50"
-          />
-          <button
-            className={`px-4 py-2 rounded-r-md transition-colors duration-200`}
-          >
-            Copy
-          </button>
+      </div> */}
+      {shortUrl && (
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold mb-2">Your shortened URL:</h2>
+          <div className="flex items-center">
+            <input
+              type="text"
+              readOnly
+              value={shortUrl}
+              className="flex-1 p-2 border border-gray-300 rounded-l-md bg-gray-50"
+            />
+            <button
+              onClick={handleCopy}
+              type="button"
+              className={`px-4 py-2 rounded-r-md transition-colors duration-200 ${
+                copied
+                  ? "bg-green-500 text-white hover:bg-green-600"
+                  : "bg-gray-200 hover:bg-gray-300"
+              }`}
+            >
+              {copied ? "Copied!" : "Copy"}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </form>
   );
 };
