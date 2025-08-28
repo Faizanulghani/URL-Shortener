@@ -1,9 +1,21 @@
-import { resgisterUser } from "../services/auth.service.js";
+import { cookieOptions } from "../config/config.js";
+import { loginUser, resgisterUser } from "../services/auth.service.js";
 import wrapAsync from "../utils/tryCatchWrapper.js";
 
-export const login = wrapAsync(async (req, res) => {});
+// Login
+export const login = wrapAsync(async (req, res) => {
+  const { email, password } = req.body;
+  const { token, user } = await loginUser(email, password);
+  req.user = user;
+  res.cookie("accessToken", token, cookieOptions);
+  res.status(200).json({ user: user, message: "login success" });
+});
+
+// Register
 export const register = wrapAsync(async (req, res) => {
   const { name, email, password } = req.body;
-  const user = await resgisterUser(name, email, password);
-  res.status(200).json(user);
+  const { token, user } = await resgisterUser(name, email, password);
+  req.user = user;
+  res.cookie("accessToken", token, cookieOptions);
+  res.status(200).json({ message: "User registered successfully" });
 });
