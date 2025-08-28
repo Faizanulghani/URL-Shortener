@@ -1,13 +1,18 @@
 import { saveShortUrl } from "../dao/shortUrl.js";
 import { generateNanoId } from "../utils/helper.js";
 
-export const createShortUrlWithoutServices = async (url) => {
+export const createShortUrlWithoutUser = async (url) => {
   const shortUrl = generateNanoId(7);
+  if (!shortUrl) throw new Error("Short URL not generated");
   await saveShortUrl(shortUrl, url);
   return shortUrl;
 };
-export const createShortUrlWithServices = async (url, userId) => {
-  const shortUrl = generateNanoId(7);
+
+export const createShortUrlWithUser = async (url, userId, slug = null) => {
+  const shortUrl = slug || generateNanoId(7);
+  const exists = await getCustomShortUrl(slug);
+  if (exists) throw new Error("This custom url already exists");
+
   await saveShortUrl(shortUrl, url, userId);
   return shortUrl;
 };
