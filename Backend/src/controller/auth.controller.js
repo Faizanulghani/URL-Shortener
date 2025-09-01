@@ -1,5 +1,5 @@
 import { cookieOptions } from "../config/config.js";
-import { loginUser, resgisterUser } from "../services/auth.service.js";
+import { loginUser, registerUser } from "../services/auth.service.js";
 import wrapAsync from "../utils/tryCatchWrapper.js";
 
 // Login
@@ -14,8 +14,8 @@ export const login = wrapAsync(async (req, res) => {
 // Register
 export const register = wrapAsync(async (req, res) => {
   const { name, email, password } = req.body;
-  const { token, user } = await resgisterUser(name, email, password);
+  const { token, user } = await registerUser(name, email, password);
   req.user = user;
   res.cookie("accessToken", token, cookieOptions);
-  res.status(200).json({ message: "User registered successfully" });
+  res.status(200).json({ message: "register success" });
 });

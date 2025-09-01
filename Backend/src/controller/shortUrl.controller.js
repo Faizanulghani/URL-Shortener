@@ -8,6 +8,8 @@ import wrapAsync from "../utils/tryCatchWrapper.js";
 export const createShortUrl = wrapAsync(async (req, res) => {
   const data = req.body;
   let shortUrl;
+  console.log(req.user, "test");
+
   if (req.user) {
     shortUrl = await createShortUrlWithUser(data.url, req.user._id, data.slug);
   } else {
