@@ -1,10 +1,9 @@
-import LoginForm from "./components/LoginForm";
-import HomePage from "./pages/HomePage";
+import AuthPage from "./pages/AuthPage";
 
 const App = () => {
   return (
     <div>
-      <LoginForm />
+      <AuthPage />
     </div>
   );
 };
