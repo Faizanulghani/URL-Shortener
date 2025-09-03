@@ -1,4 +1,5 @@
-import { Link } from "@tanstack/react-router";
+import React from 'react';
+import { Link } from '@tanstack/react-router';
 
 const Navbar = () => {
   return (
@@ -11,7 +12,7 @@ const Navbar = () => {
               URL Shortener
             </Link>
           </div>
-
+          
           {/* Right side - Auth buttons */}
           <div className="flex items-center">
             {/* {(true) ? (
