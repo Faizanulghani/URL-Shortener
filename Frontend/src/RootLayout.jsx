@@ -5,9 +5,9 @@ import { logout } from "./store/slice/authSlice";
 
 const RootLayout = () => {
   const auth = useSelector((state) => state.auth);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(auth);
 
   const handleLogout = async () => {
     try {
