@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@tanstack/react-router';
 
-const Navbar = ({ isLoggedIn, userName, onLogout }) => {
+const Navbar = ({ isLoggedIn, userName, userAvatar, onLogout }) => {
   return (
     <nav className="bg-white border-b border-black">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,6 +17,14 @@ const Navbar = ({ isLoggedIn, userName, onLogout }) => {
           <div className="flex items-center">
             {isLoggedIn ? (
               <div className="flex items-center space-x-4">
+                {/* Avatar */}
+                {userAvatar && (
+                  <img
+                    src={userAvatar}
+                    alt={userName || "User"}
+                    className="w-8 h-8 rounded-full border"
+                  />
+                )}
                 <span className="text-gray-700">
                   Welcome, {userName || 'User'}
                 </span>

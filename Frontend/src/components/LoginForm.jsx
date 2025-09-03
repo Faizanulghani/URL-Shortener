@@ -5,8 +5,8 @@ import { login } from '../store/slice/authSlice.js';
 import { useNavigate } from '@tanstack/react-router';
 
 const LoginForm = ({ state }) => {
-    const [email, setEmail] = useState('faizan@gmail.com');
-    const [password, setPassword] = useState('123');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate()
@@ -23,7 +23,6 @@ const LoginForm = ({ state }) => {
             dispatch(login(data.user))
             navigate({to:"/dashboard"})
             setLoading(false);
-            console.log("signin success")
         } catch (err) {
             setLoading(false);
             setError(err.message || 'Login failed. Please check your credentials.');
